@@ -1,10 +1,10 @@
 var express = require('Express');
 var app = express();
-
+app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
 
 app.get('/', function(req, res){
-    res.send('GET route on index.');
+    res.render("todo.ejs");
  });
  app.post('/', function(req, res){
     res.send('POST route on index.');
