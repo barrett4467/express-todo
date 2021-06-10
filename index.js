@@ -11,24 +11,25 @@ dotenv.config();
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
-//GET Method
-app.get('/', function(req, res){
-    res.render("todo.ejs");
- });
 //Database connection
 mongoose.set("useFindAndModify", false);
 
 mongoose.connect(process.env.DB_CONNECT, {
     useNewUrlParser: true }, ()=>{
         console.log("Connected to Mongodb!");
-            //server
-            
-    app.listen(3000, () => 
-    console.log("Server up and running on port 3000")
-    );
+        //server
+        
+        app.listen(3000, () => 
+        console.log("Server up and running on port 3000")
+        );
     })
-
-
+    
+    
+//GET Method
+app.get('/', function(req, res){
+    TodoTask.find({}, (err, tasks) => {
+        res.render("todo.ejs", { todoTasks: tasks });
+    })});
  //POST Method
  app.post('/', async (req, res) => {
      try {
